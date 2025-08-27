@@ -175,6 +175,7 @@ public class MediaArtwork {
 
   private String                imdbId;
   private int                   tmdbId;
+  private int                   tvdbId;
   private int                   season     = -1;
   private String                previewUrl = "";
   private String                defaultUrl = "";
@@ -240,6 +241,14 @@ public class MediaArtwork {
 
   public void setTmdbId(int tmdbId) {
     this.tmdbId = tmdbId;
+  }
+
+  public int getTvdbId() {
+    return tvdbId;
+  }
+
+  public void setTvdbId(int tvdbId) {
+    this.tvdbId = tvdbId;
   }
 
   public String getImdbId() {
