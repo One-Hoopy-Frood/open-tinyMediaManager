@@ -1,3 +1,6 @@
+Open Tiny Media Manager to come!
+----------------
+
 tinyMediaManager
 ========================
 
