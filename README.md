@@ -15,6 +15,8 @@ tinyMediaManager is free and will stay free. If you appreciate all the effort th
 ##Version 2##
 Version 2.6.8 has been released on 08. June 2015.
 
+This fork adds optional metadata scraping from [The Movie Database](https://www.themoviedb.org) and [The TVDB](http://thetvdb.com) alongside the existing IMDB integration.
+
 ##Features##
 [http://www.tinymediamanager.org/index.php/features/](http://www.tinymediamanager.org/index.php/features/)
 

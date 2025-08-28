@@ -69,6 +69,7 @@ public class TheTvDbMetadataProvider implements ITvShowMetadataProvider, IMediaA
   private static TheTVDBApi        tvdb;
   private static MediaProviderInfo providerInfo = new MediaProviderInfo(Constants.TVDBID, "thetvdb.com",
                                                     "Scraper for thetvdb.com which is able to scrape tv series metadata and artwork");
+  private static final String      TVDB_BASE_URL = "http://thetvdb.com/?tab=series&id=";
 
   public TheTvDbMetadataProvider() throws Exception {
     initAPI();
@@ -169,7 +170,14 @@ public class TheTvDbMetadataProvider implements ITvShowMetadataProvider, IMediaA
 
       if (md != null && StringUtils.isNotBlank(md.getStringValue(MediaMetadata.TITLE))) {
         MediaSearchResult result = new MediaSearchResult(providerInfo.getId());
-        result.setId((String) md.getId(providerInfo.getId()));
+        String id = (String) md.getId(providerInfo.getId());
+        result.setId(id);
+        try {
+          result.setTvdbId(Integer.parseInt(id));
+        }
+        catch (NumberFormatException e) {
+        }
+        result.setUrl(TVDB_BASE_URL + id);
         result.setTitle(md.getStringValue(MediaMetadata.TITLE));
         result.setPosterUrl(md.getStringValue(MediaMetadata.POSTER_URL));
         results.add(result);
@@ -205,6 +213,12 @@ public class TheTvDbMetadataProvider implements ITvShowMetadataProvider, IMediaA
   private MediaSearchResult createSearchResult(Series show, MediaSearchOptions options, String searchString) {
     MediaSearchResult sr = new MediaSearchResult(providerInfo.getId());
     sr.setId(show.getId());
+    try {
+      sr.setTvdbId(Integer.parseInt(show.getId()));
+    }
+    catch (NumberFormatException e) {
+    }
+    sr.setUrl(TVDB_BASE_URL + show.getId());
     sr.setIMDBId(show.getImdbId());
     sr.setTitle(show.getSeriesName());
     sr.setPosterUrl(show.getPoster());
@@ -228,7 +242,20 @@ public class TheTvDbMetadataProvider implements ITvShowMetadataProvider, IMediaA
 
     // id from result
     if (options.getResult() != null) {
-      id = options.getResult().getId();
+      if (options.getResult().getTvdbId() > 0) {
+        id = String.valueOf(options.getResult().getTvdbId());
+      }
+      else {
+        id = options.getResult().getId();
+      }
+    }
+
+    // id from options (numeric field)
+    if (StringUtils.isEmpty(id)) {
+      int nid = options.getTvdbId();
+      if (nid > 0) {
+        id = String.valueOf(nid);
+      }
     }
 
     // do we have an id from the options?
@@ -327,7 +354,20 @@ public class TheTvDbMetadataProvider implements ITvShowMetadataProvider, IMediaA
 
     // id from result
     if (options.getResult() != null) {
-      id = options.getResult().getId();
+      if (options.getResult().getTvdbId() > 0) {
+        id = String.valueOf(options.getResult().getTvdbId());
+      }
+      else {
+        id = options.getResult().getId();
+      }
+    }
+
+    // id from options (numeric field)
+    if (StringUtils.isEmpty(id)) {
+      int nid = options.getTvdbId();
+      if (nid > 0) {
+        id = String.valueOf(nid);
+      }
     }
 
     // do we have an id from the options?

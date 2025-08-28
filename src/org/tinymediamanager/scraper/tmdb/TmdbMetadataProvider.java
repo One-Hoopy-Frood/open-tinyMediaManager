@@ -75,6 +75,7 @@ public class TmdbMetadataProvider implements IMediaMetadataProvider, IMediaArtwo
   private static final Logger           LOGGER            = LoggerFactory.getLogger(TmdbMetadataProvider.class);
   private static final RingBuffer<Long> connectionCounter = new RingBuffer<Long>(30);
   private static final String           apiKey            = "6247670ec93f4495a36297ff88f7cd15";
+  private static final String           TMDB_BASE_URL     = "https://www.themoviedb.org/movie/";
 
   private static TheMovieDbApi          tmdb;
   private static MediaProviderInfo      providerInfo      = new MediaProviderInfo(Constants.TMDBID, "themoviedb.org",
@@ -227,6 +228,8 @@ public class TmdbMetadataProvider implements IMediaMetadataProvider, IMediaArtwo
       if (movie != null) {
         MediaSearchResult sr = new MediaSearchResult(providerInfo.getId());
         sr.setId(Integer.toString(movie.getId()));
+        sr.setTmdbId(movie.getId());
+        sr.setUrl(TMDB_BASE_URL + movie.getId());
         sr.setIMDBId(movie.getImdbID());
         sr.setTitle(movie.getTitle());
         sr.setOriginalTitle(movie.getOriginalTitle());
@@ -288,7 +291,14 @@ public class TmdbMetadataProvider implements IMediaMetadataProvider, IMediaArtwo
 
     // tmdbId from searchResult
     if (options.getResult() != null) {
-      tmdbId = Integer.parseInt(options.getResult().getId());
+      tmdbId = options.getResult().getTmdbId();
+      if (tmdbId == 0) {
+        try {
+          tmdbId = Integer.parseInt(options.getResult().getId());
+        }
+        catch (NumberFormatException e) {
+        }
+      }
     }
 
     // tmdbId from option
@@ -508,7 +518,14 @@ public class TmdbMetadataProvider implements IMediaMetadataProvider, IMediaArtwo
 
     // tmdbId from searchResult
     if (options.getResult() != null) {
-      tmdbId = Integer.parseInt(options.getResult().getId());
+      tmdbId = options.getResult().getTmdbId();
+      if (tmdbId == 0) {
+        try {
+          tmdbId = Integer.parseInt(options.getResult().getId());
+        }
+        catch (NumberFormatException e) {
+        }
+      }
     }
 
     // tmdbId from option
