@@ -15,6 +15,15 @@ tinyMediaManager is free and will stay free. If you appreciate all the effort th
 ##Version 2##
 Version 2.6.8 has been released on 08. June 2015.
 
+This fork adds optional metadata scraping from [The Movie Database](https://www.themoviedb.org) and [The TVDB](http://thetvdb.com) alongside the existing IMDB integration.
+
+### Configuring providers
+
+tinyMediaManager ships with sample API keys for the TMDB and TVDB services so that the scrapers work out of the box.  These keys
+are intended for testing only.  You can supply your own keys in the **Settings ➜ Movies / TV Shows ➜ Scraper** panes where each
+provider can be enabled or disabled individually.  When scraping metadata or artwork the chooser dialogs now retain and forward
+any available IMDB, TMDB or TVDB identifiers to the providers so that lookups are performed against the correct service.
+
 ##Features##
 [http://www.tinymediamanager.org/index.php/features/](http://www.tinymediamanager.org/index.php/features/)
 

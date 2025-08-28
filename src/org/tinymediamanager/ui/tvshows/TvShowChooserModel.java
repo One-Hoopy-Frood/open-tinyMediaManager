@@ -186,6 +186,12 @@ public class TvShowChooserModel extends AbstractModelObject {
     options.setMetadata(metadata);
     options.setId(MediaMetadata.IMDBID, String.valueOf(metadata.getId(MediaMetadata.IMDBID)));
     options.setId(MediaMetadata.TVDBID, String.valueOf(metadata.getId(MediaMetadata.TVDBID)));
+    try {
+      options.setTmdbId(Integer.parseInt(String.valueOf(metadata.getId(MediaMetadata.TMDBID))));
+    }
+    catch (Exception e) {
+      options.setTmdbId(0);
+    }
     options.setLanguage(language);
     options.setCountry(Globals.settings.getTvShowSettings().getCertificationCountry());
 

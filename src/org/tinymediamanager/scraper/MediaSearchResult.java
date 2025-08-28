@@ -38,6 +38,8 @@ public class MediaSearchResult implements Comparable<MediaSearchResult> {
   private float               score;
   private Map<String, String> extraArgs = new HashMap<String, String>();
   private String              imdbId;
+  private int                 tmdbId;
+  private int                 tvdbId;
   private MediaMetadata       metadata  = null;
   private MediaType           type;
   private String              posterUrl;
@@ -61,6 +63,8 @@ public class MediaSearchResult implements Comparable<MediaSearchResult> {
     originalTitle = StringUtils.isEmpty(originalTitle) ? msr.getOriginalTitle() : originalTitle;
     id = StringUtils.isEmpty(id) ? msr.getId() : id;
     imdbId = StringUtils.isEmpty(imdbId) ? msr.getIMDBId() : imdbId;
+    tmdbId = tmdbId == 0 ? msr.getTmdbId() : tmdbId;
+    tvdbId = tvdbId == 0 ? msr.getTvdbId() : tvdbId;
     posterUrl = StringUtils.isEmpty(posterUrl) ? msr.getPosterUrl() : posterUrl;
 
     extraArgs.putAll(msr.getExtra()); // meh - add all
@@ -163,6 +167,22 @@ public class MediaSearchResult implements Comparable<MediaSearchResult> {
 
   public void setIMDBId(String imdbid) {
     this.imdbId = imdbid;
+  }
+
+  public int getTmdbId() {
+    return tmdbId;
+  }
+
+  public void setTmdbId(int tmdbId) {
+    this.tmdbId = tmdbId;
+  }
+
+  public int getTvdbId() {
+    return tvdbId;
+  }
+
+  public void setTvdbId(int tvdbId) {
+    this.tvdbId = tvdbId;
   }
 
   public Map<String, String> getExtra() {
