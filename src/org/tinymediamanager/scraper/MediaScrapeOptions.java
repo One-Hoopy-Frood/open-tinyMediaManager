@@ -74,12 +74,27 @@ public class MediaScrapeOptions {
     return id;
   }
 
+  public int getTvdbId() {
+    int id = 0;
+    try {
+      id = Integer.parseInt(ids.get(Constants.TVDBID));
+    }
+    catch (Exception e) {
+      return 0;
+    }
+    return id;
+  }
+
   public void setImdbId(String imdbId) {
     ids.put(Constants.IMDBID, imdbId);
   }
 
   public void setTmdbId(int tmdbId) {
     ids.put(Constants.TMDBID, String.valueOf(tmdbId));
+  }
+
+  public void setTvdbId(int tvdbId) {
+    ids.put(Constants.TVDBID, String.valueOf(tvdbId));
   }
 
   public MediaArtworkType getArtworkType() {
